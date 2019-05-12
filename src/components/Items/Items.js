@@ -5,7 +5,7 @@ const items = (props) => {
 
     return props.stores.map((store, index) => {
         return (
-            <Item storeName={store.name} />
+            <Item name={store.name} />
         );
     });
 };

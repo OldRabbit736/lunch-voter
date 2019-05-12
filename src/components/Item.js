@@ -4,7 +4,7 @@ const item = (props) => {
 
     return (
         <div>
-            <input type="checkbox"/> {props.storeName}
+            <input type="checkbox"/> {props.name}
         </div>
     );
 };
