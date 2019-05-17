@@ -32,7 +32,8 @@ class Sender extends Component {
     render() {
         return (
             <div>
-                <input type="textfield" onChange={this.textChanged} value={this.state.text} />
+                <input type="textfield" onChange={this.textChanged}
+                    value={this.state.text} />
                 <button onClick={this.btnClicked}>Add</button>
             </div>
         );

@@ -4,7 +4,8 @@ const item = (props) => {
 
     return (
         <div>
-            <input type="checkbox" onChange={(event) => { console.log(event.target.type) }} /> {props.name}
+            <input type="checkbox" id={props.id} checked={props.checked}
+                onChange={props.onCheckedChange} /> {props.name}
         </div>
     );
 };
