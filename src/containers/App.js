@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Items from '../components/Items/Items';
-import Sender from '../components/Sender';
+import Sender from '../components/Sender/Sender';
 import firebase from 'firebase';
 
 class App extends Component {
