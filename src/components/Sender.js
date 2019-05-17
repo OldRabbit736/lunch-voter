@@ -24,7 +24,7 @@ class Sender extends Component {
         this.setState({ text: event.target.value })
     }
 
-    btnClicked = () => {
+    addBtnClicked = () => {
         // push input text to store list        
         this.updateList();
     }
@@ -34,7 +34,8 @@ class Sender extends Component {
             <div>
                 <input type="textfield" onChange={this.textChanged}
                     value={this.state.text} />
-                <button onClick={this.btnClicked}>Add</button>
+                <button onClick={this.addBtnClicked}>Add</button>
+                <button onClick={this.props.delBtnClicked}>Delete</button>
             </div>
         );
     }

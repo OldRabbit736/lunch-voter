@@ -9,6 +9,7 @@ class App extends Component {
         this.state = {
             stores: []
         };
+        this.storesRef = firebase.database().ref('stores');
     }
 
     handleChecked(event) {
@@ -30,6 +31,23 @@ class App extends Component {
         this.setState({ stores: stores });
     }
 
+    delBtnClicked() {
+        // find the checked stores
+        const checkedStores = [];
+        this.state.stores.forEach((store) => {
+            if (store.checked === true) {
+                checkedStores.push(store.id);
+            }
+        });
+
+        // request to the server to delete the stores
+        if (checkedStores.length > 0) {
+            checkedStores.forEach((checkedStore)=>{
+                this.storesRef.child(checkedStore).remove();
+            })            
+        }
+    }
+
     componentDidMount() {
         // listen to realtime database and setState
         const storesRef = firebase.database().ref('stores');
@@ -46,7 +64,7 @@ class App extends Component {
                     newStores.push(store);
                 }
             }
-            this.setState({ stores: newStores });            
+            this.setState({ stores: newStores });
         });
     }
 
@@ -56,7 +74,7 @@ class App extends Component {
             <div>
                 <Items stores={this.state.stores}
                     onCheckedChange={this.handleChecked.bind(this)} />
-                <Sender />
+                <Sender delBtnClicked={this.delBtnClicked.bind(this)} />
             </div>
         );
     }
