@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 // initializing firebase
 const firebaseConfig = {
@@ -17,20 +17,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-// prepare basic data
-const STORES = [
-    {
-        name: '호시'
-    },
-    {
-        name: '닭갈비'
-    },
-    {
-        name: '홍콩반점'
-    }
-];
-
-ReactDOM.render(<App stores={STORES} />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -7,10 +7,10 @@ class Sender extends Component {
         this.state = {
             text: ''
         };
-        this.rootRef = firebase.database().ref().child('abc');
+        this.storesRef = firebase.database().ref('stores');
         this.updateList = () => {
             if (this.state.text) {
-                this.rootRef.push({
+                this.storesRef.push({
                     name: this.state.text
                 })
             }
