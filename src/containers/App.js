@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
 import Items from '../components/Items/Items';
-import Sender from '../components/Sender/Sender';
+import Selector from '../components/Selector/Selector';
 import firebase from 'firebase';
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            stores: []
+            stores: [],
+            selectedStores: []
         };
         this.storesRef = firebase.database().ref('stores');
     }
 
-    handleChecked(event) {
+    storeClicked = (event) => {
+        // highlight selected store
+
+        // add the store id and name to the selected stores        
+        const newSelectedStores = [...this.state.selectedStores];
+        newSelectedStores.push(event.target.id);
+
+        // update the state
+        this.setState({ selectedStores: newSelectedStores });
+    }
+
+    handleChecked = (event) => {
         // find the id of the target
         const id = event.target.id;
 
@@ -32,7 +44,7 @@ class App extends Component {
         this.setState({ stores: stores });
     }
 
-    delBtnClicked() {
+    delBtnClicked = () => {
         // find the checked stores
         const checkedStores = [];
         this.state.stores.forEach((store) => {
@@ -43,9 +55,9 @@ class App extends Component {
 
         // request to the server to delete the stores
         if (checkedStores.length > 0) {
-            checkedStores.forEach((checkedStore)=>{
+            checkedStores.forEach((checkedStore) => {
                 this.storesRef.child(checkedStore).remove();
-            })            
+            })
         }
     }
 
@@ -74,8 +86,10 @@ class App extends Component {
         return (
             <div className={classes.App}>
                 <Items stores={this.state.stores}
-                    onCheckedChange={this.handleChecked.bind(this)} />
-                <Sender delBtnClicked={this.delBtnClicked.bind(this)} />
+                    onCheckedChange={this.handleChecked.bind(this)}
+                    delBtnClicked={this.delBtnClicked.bind(this)}
+                    storeClicked={this.storeClicked.bind(this)} />
+                <Selector selectedStores={this.state.selectedStores}/>
             </div>
         );
     }

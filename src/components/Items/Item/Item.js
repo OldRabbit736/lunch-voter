@@ -5,8 +5,16 @@ const item = (props) => {
 
     return (
         <div className={classes.Item}>
-            <input type="checkbox" id={props.id} checked={props.checked}
-                onChange={props.onCheckedChange} /> {props.name}
+            <input type="checkbox"
+                id={props.id}
+                checked={props.checked}
+                onChange={props.onCheckedChange}
+            />
+            <p className={classes.store}
+                id={props.name}
+                onClick={props.storeClicked}>
+                {props.name}
+            </p>
         </div>
     );
 };
