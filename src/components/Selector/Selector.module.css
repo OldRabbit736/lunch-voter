@@ -17,3 +17,8 @@
 .list {
     list-style: none;
 }
+
+.inputId {
+    margin-left: 10px;
+    width: 100px;
+}

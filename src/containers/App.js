@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './App.module.css';
 import Items from '../components/Items/Items';
 import Selector from '../components/Selector/Selector';
+import Results from '../components/Results/Results';
 import firebase from 'firebase';
 
 class App extends Component {
@@ -23,6 +24,27 @@ class App extends Component {
 
         // update the state
         this.setState({ selectedStores: newSelectedStores });
+    }
+
+    storeReset = () => {
+        // set selectedStores empty
+        this.setState({ selectedStores: [] });
+    }
+
+    storeConfirm = () => {
+        // validate the number of selected stores
+        const length = this.state.selectedStores.length;
+        if (length === 0) {
+            alert("하나라도 찍으세요");
+            return;
+        }
+        if (length > 3) {
+            alert("최대 3개까지 선택 가능함 이 욕심쟁이야");
+            return;
+        }
+
+        // send the stores to the server
+        alert("아직 구현 중!");
     }
 
     handleChecked = (event) => {
@@ -65,6 +87,7 @@ class App extends Component {
         // listen to realtime database and setState
         const storesRef = firebase.database().ref('stores');
 
+        // retrieve store list
         storesRef.on('value', (snapshot) => {
             const newStores = [];
             for (var key in snapshot.val()) {
@@ -79,6 +102,9 @@ class App extends Component {
             }
             this.setState({ stores: newStores });
         });
+
+        // retrieve results
+
     }
 
     render() {
@@ -89,7 +115,10 @@ class App extends Component {
                     onCheckedChange={this.handleChecked.bind(this)}
                     delBtnClicked={this.delBtnClicked.bind(this)}
                     storeClicked={this.storeClicked.bind(this)} />
-                <Selector selectedStores={this.state.selectedStores}/>
+                <Selector selectedStores={this.state.selectedStores}
+                    storeReset={this.storeReset.bind(this)}
+                    storeConfirm={this.storeConfirm.bind(this)} />
+                <Results />
             </div>
         );
     }

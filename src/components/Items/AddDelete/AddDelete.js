@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 
-class Sender extends Component {
+class AddDelete extends Component {
     constructor() {
         super();
         this.state = {
@@ -41,4 +41,4 @@ class Sender extends Component {
     }
 }
 
-export default Sender;
+export default AddDelete;

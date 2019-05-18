@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './Item/Item';
-import Sender from '../Sender/Sender';
+import AddDelete from './AddDelete/AddDelete';
 import classes from './Items.module.css';
 
 const items = (props) => {
@@ -17,7 +17,7 @@ const items = (props) => {
                     );
                 })
             }
-            <Sender delBtnClicked={props.delBtnClicked} />
+            <AddDelete delBtnClicked={props.delBtnClicked} />
         </div>
     )
 
