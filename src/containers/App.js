@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classes from './App.module.css';
 import Items from '../components/Items/Items';
 import Sender from '../components/Sender/Sender';
 import firebase from 'firebase';
@@ -71,7 +72,7 @@ class App extends Component {
     render() {
 
         return (
-            <div>
+            <div className={classes.App}>
                 <Items stores={this.state.stores}
                     onCheckedChange={this.handleChecked.bind(this)} />
                 <Sender delBtnClicked={this.delBtnClicked.bind(this)} />
