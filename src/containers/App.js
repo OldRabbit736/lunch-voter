@@ -148,6 +148,7 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     sender={this.state.sender}
                     senderTyped={this.senderTyped.bind(this)} />
+                <Results />
             </div>
         );
     }

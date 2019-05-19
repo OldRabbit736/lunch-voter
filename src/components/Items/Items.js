@@ -7,6 +7,7 @@ const items = (props) => {
 
     return (
         <div className={classes.Items}>
+            <h2 className={classes.h2}>List</h2>
             {
                 props.stores.map((store, index) => {
                     return (

@@ -1,4 +1,9 @@
 .Items {
     float: left;
-    margin: 8px;
+    margin: 10px;
+}
+
+.h2 {
+    margin-top: 0px;
+    margin-bottom: 3px;
 }
