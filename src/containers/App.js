@@ -12,7 +12,8 @@ class App extends Component {
         this.state = {
             stores: [],
             selectedStores: [],
-            sender: ''
+            sender: '',
+            votes: []
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
@@ -60,20 +61,21 @@ class App extends Component {
         // - prepare information object
         const infoObj = {
             name: this.state.sender,
-            time: timeVal
+            time: timeVal,
+            picks: {}
         }
         // - max number of pick is 3        
         const lengthPick = length > 3 ? 3 : length;
         // - set the pick property
         for (var i = 0; i < lengthPick; i++) {
-            infoObj[`pick${i}`] = this.state.selectedStores[i];
+            infoObj.picks[i] = this.state.selectedStores[i];            
         }
         // - send it to the server
         this.votesRef.child(dateRef).push(infoObj);
 
         // - clear picks
-        this.setState({selectedStores: [], sender: ''});
-        
+        this.setState({ selectedStores: [], sender: '' });
+
     }
 
     handleChecked = (event) => {
@@ -113,11 +115,8 @@ class App extends Component {
     }
 
     componentDidMount() {
-        // listen to realtime database and setState
-        const storesRef = firebase.database().ref('stores');
-
         // retrieve store list
-        storesRef.on('value', (snapshot) => {
+        this.storesRef.on('value', (snapshot) => {
             const newStores = [];
             for (var key in snapshot.val()) {
                 if (snapshot.val().hasOwnProperty(key)) {
@@ -132,8 +131,26 @@ class App extends Component {
             this.setState({ stores: newStores });
         });
 
-        // retrieve results
-
+        // retrieve votes for today
+        this.votesRef.on('value', (snapshot) => {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+            const votesObj = snapshot.child(dateRef).val();
+            const newVotes = [];
+            
+            for (var key in votesObj) {
+                if (votesObj.hasOwnProperty(key)) {
+                    var vote = {
+                        id: key,
+                        name: votesObj[key].name,
+                        picks: votesObj[key].picks,
+                        time: votesObj[key].time
+                    }
+                    newVotes.push(vote);                    
+                }
+            }
+            this.setState({ votes: newVotes });            
+        });
     }
 
     render() {
@@ -149,7 +166,7 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     sender={this.state.sender}
                     senderTyped={this.senderTyped.bind(this)} />
-                <Results />
+                <Results votes={this.state.votes}/>
             </div>
         );
     }
