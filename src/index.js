@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import "@firebase/polyfill";
 import firebase from 'firebase';
+
 
 // initializing firebase
 const firebaseConfig = {

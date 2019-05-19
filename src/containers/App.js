@@ -3,6 +3,7 @@ import classes from './App.module.css';
 import Items from '../components/Items/Items';
 import Selector from '../components/Selector/Selector';
 import Results from '../components/Results/Results';
+import "@firebase/polyfill";
 import firebase from 'firebase';
 
 class App extends Component {

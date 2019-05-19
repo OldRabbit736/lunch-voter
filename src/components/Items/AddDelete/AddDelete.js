@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "@firebase/polyfill";
 import firebase from 'firebase';
 
 class AddDelete extends Component {
