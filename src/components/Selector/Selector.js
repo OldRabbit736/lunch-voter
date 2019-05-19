@@ -9,13 +9,17 @@ const selector = (props) => {
             <label className={classes.label}>~사용법: 가게 이름을 찍으세요~</label>
 
             <label>제출자</label>
-            <input className={classes.inputId}type="text"></input>
-            
-            <br/>
+            <input
+                className={classes.inputId} type="text"
+                onChange={props.senderTyped}
+                value={props.sender}>
+            </input>
+
+            <br />
             <button onClick={props.storeReset}>리스트 리셋</button>
             <button onClick={props.storeConfirm}>이 픽으로 간다!</button>
-            
-            
+
+
             <div>
                 {props.selectedStores.map((store, index) => {
                     return (

@@ -10,9 +10,15 @@ class App extends Component {
         super();
         this.state = {
             stores: [],
-            selectedStores: []
+            selectedStores: [],
+            sender: ''
         };
         this.storesRef = firebase.database().ref('stores');
+        this.votesRef = firebase.database().ref('votes');
+    }
+
+    senderTyped = (event) => {
+        this.setState({ sender: event.target.value });
     }
 
     storeClicked = (event) => {
@@ -35,16 +41,38 @@ class App extends Component {
         // validate the number of selected stores
         const length = this.state.selectedStores.length;
         if (length === 0) {
-            alert("하나라도 찍으세요");
+            alert('가게 적어도 1개 선택해야 함');
             return;
         }
-        if (length > 3) {
-            alert("최대 3개까지 선택 가능함 이 욕심쟁이야");
+        // validate the sender name
+        if (this.state.sender === '') {
+            alert('제출자 빈칸임');
             return;
         }
 
-        // send the stores to the server
-        alert("아직 구현 중!");
+        // send the stores to the server        
+        const today = new Date();
+        // - set the key value
+        const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        // - set the time property
+        const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
+        // - prepare information object
+        const infoObj = {
+            name: this.state.sender,
+            time: timeVal
+        }
+        // - max number of pick is 3        
+        const lengthPick = length > 3 ? 3 : length;
+        // - set the pick property
+        for (var i = 0; i < lengthPick; i++) {
+            infoObj[`pick${i}`] = this.state.selectedStores[i];
+        }
+        // - send it to the server
+        this.votesRef.child(dateRef).push(infoObj);
+
+        // - clear picks
+        this.setState({selectedStores: [], sender: ''});
+        
     }
 
     handleChecked = (event) => {
@@ -117,8 +145,9 @@ class App extends Component {
                     storeClicked={this.storeClicked.bind(this)} />
                 <Selector selectedStores={this.state.selectedStores}
                     storeReset={this.storeReset.bind(this)}
-                    storeConfirm={this.storeConfirm.bind(this)} />
-                <Results />
+                    storeConfirm={this.storeConfirm.bind(this)}
+                    sender={this.state.sender}
+                    senderTyped={this.senderTyped.bind(this)} />
             </div>
         );
     }
