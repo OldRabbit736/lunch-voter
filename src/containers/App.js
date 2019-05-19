@@ -19,6 +19,13 @@ class App extends Component {
         this.votesRef = firebase.database().ref('votes');
     }
 
+    delVoteBtnClicked = (event) => {
+        console.log(event.target.id);
+        const today = new Date();        
+        const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        this.votesRef.child(dateRef).child(event.target.id).remove();
+    }
+
     senderTyped = (event) => {
         this.setState({ sender: event.target.value });
     }
@@ -166,7 +173,7 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     sender={this.state.sender}
                     senderTyped={this.senderTyped.bind(this)} />
-                <Results votes={this.state.votes}/>
+                <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)}/>
             </div>
         );
     }

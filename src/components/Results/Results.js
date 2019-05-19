@@ -30,7 +30,7 @@ const results = (props) => {
 
             // cautious! key2 is string so use [key2] not .key2   
             var score = [];           
-            var score = [scoresObj[key2][0], scoresObj[key2][1], scoresObj[key2][2], key2];
+            score = [scoresObj[key2][0], scoresObj[key2][1], scoresObj[key2][2], key2];
 
             scoresArr.push(score);
         }
@@ -79,7 +79,7 @@ const results = (props) => {
             <Result store={scoresArr[0]} />
             <Result store={scoresArr[1]} />
             <Result store={scoresArr[2]} />
-            <Votes votes={props.votes} />
+            <Votes votes={props.votes} onClicked={props.onClicked} />
         </div>
     )
 }
