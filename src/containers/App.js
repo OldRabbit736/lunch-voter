@@ -20,10 +20,13 @@ class App extends Component {
     }
 
     delVoteBtnClicked = (event) => {
-        console.log(event.target.id);
-        const today = new Date();        
-        const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
-        this.votesRef.child(dateRef).child(event.target.id).remove();
+
+        const answer = window.confirm('해당 투표 삭제할까요?');
+        if (answer) {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+            this.votesRef.child(dateRef).child(event.target.id).remove();
+        }
     }
 
     senderTyped = (event) => {
@@ -44,6 +47,8 @@ class App extends Component {
     storeReset = () => {
         // set selectedStores empty
         this.setState({ selectedStores: [] });
+
+        
     }
 
     storeConfirm = () => {
@@ -75,7 +80,7 @@ class App extends Component {
         const lengthPick = length > 3 ? 3 : length;
         // - set the pick property
         for (var i = 0; i < lengthPick; i++) {
-            infoObj.picks[i] = this.state.selectedStores[i];            
+            infoObj.picks[i] = this.state.selectedStores[i];
         }
         // - send it to the server
         this.votesRef.child(dateRef).push(infoObj);
@@ -144,7 +149,7 @@ class App extends Component {
             const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
             const votesObj = snapshot.child(dateRef).val();
             const newVotes = [];
-            
+
             for (var key in votesObj) {
                 if (votesObj.hasOwnProperty(key)) {
                     var vote = {
@@ -153,10 +158,10 @@ class App extends Component {
                         picks: votesObj[key].picks,
                         time: votesObj[key].time
                     }
-                    newVotes.push(vote);                    
+                    newVotes.push(vote);
                 }
             }
-            this.setState({ votes: newVotes });            
+            this.setState({ votes: newVotes });
         });
     }
 
@@ -173,7 +178,7 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     sender={this.state.sender}
                     senderTyped={this.senderTyped.bind(this)} />
-                <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)}/>
+                <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)} />
             </div>
         );
     }
