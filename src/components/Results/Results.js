@@ -5,9 +5,14 @@ import Votes from './Votes/Votes';
 
 const results = (props) => {
 
+    // votes => [{id : '-Lf....', name : '궁예', picks : ['홍대개미', '닭갈비', '육개장']}, ... ]
     const votes = props.votes;
-
+    // scoresObj => { 홍대개미 : [1, 0, 0], 매콤돈까스 : [0, 1, 0], ... }
     const scoresObj = {};
+    // scoresArr => [[5, 1, 1, 0, '콩나물국밥'], [3, 1, 0, 0, '홍대개미'], ... ]
+    const scoresArr = [];
+
+    // scoresObj => { 홍대개미 : [1, 0, 0], 매콤돈까스 : [0, 1, 0], ... }    
     for (var key1 in votes) {
         if (votes.hasOwnProperty(key1)) {
             votes[key1].picks.map((pick, index) => {
@@ -21,57 +26,29 @@ const results = (props) => {
                 }
             });
         }
-    }    
+    }
 
-    // convert the object into array
-    const scoresArr = [];
+    // scoresArr => [[5, 1, 1, 0, '콩나물국밥'], [3, 1, 0, 0, '홍대개미'], ... ]    
     for (var key2 in scoresObj) {
         if (scoresObj.hasOwnProperty(key2)) {
 
             // cautious! key2 is string so use [key2] not .key2   
-            var score = [];           
-            score = [scoresObj[key2][0], scoresObj[key2][1], scoresObj[key2][2], key2];
+            var score = [];
+            var pick1 = scoresObj[key2][0];
+            var pick2 = scoresObj[key2][1];
+            var pick3 = scoresObj[key2][2];
+            var total = pick1 * 3 + pick2 * 2 + pick3;
 
+            score = [total, pick1, pick2, pick3, key2];
             scoresArr.push(score);
         }
-    }    
+    }
 
     const scoreComparator = (store1, store2) => {
-        // about pick 1
-        if (store1[0] > store2[0]) {
-            return -1;
-        }
-
-        if (store1[0] < store2[0]) {
-            return 1;
-        }
-
-        // pick1 is the same
-        // about pick 2
-        if (store1[1] > store2[1]) {
-            return -1;
-        }
-
-        if (store1[1] < store2[1]) {
-            return 1;
-        }
-
-        // pick2 is the same
-        // about pick 3
-        if (store1[2] > store2[2]) {
-            return -1;
-        }
-
-        if (store1[2] < store2[2]) {
-            return 1;
-        }
-
-        return 0;
+        return store2[0] - store1[0];
     };
 
-    // rank concluded!
-    scoresArr.sort(scoreComparator);   
-    console.log(scoresArr);
+    scoresArr.sort(scoreComparator);
 
     return (
         <div className={classes.Results}>
@@ -79,6 +56,8 @@ const results = (props) => {
             <Result store={scoresArr[0]} />
             <Result store={scoresArr[1]} />
             <Result store={scoresArr[2]} />
+            <Result store={scoresArr[3]} />
+
             <Votes votes={props.votes} onClicked={props.onClicked} />
         </div>
     )

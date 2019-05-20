@@ -13,7 +13,9 @@ class App extends Component {
             stores: [],
             selectedStores: [],
             sender: '',
-            votes: []
+            votes: [
+                
+            ]
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');

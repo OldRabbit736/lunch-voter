@@ -9,7 +9,7 @@ const vote = (props) => {
             <button id={props.id} onClick={props.onClicked}>del</button>
             {props.vote.picks.map((pick, index) => {
                 return (
-                    <h3 key={index}>{index+1}픽 {pick}</h3>                        
+                    <h3 className={classes.h3} key={index}>{index+1}픽 {pick}</h3>                        
                 )
             })}
         </div>
