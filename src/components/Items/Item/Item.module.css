@@ -4,4 +4,9 @@
 
 .store {
     display: inline;
+    cursor: pointer;
+}
+
+.store:hover {
+    color: rgb(48, 187, 102);
 }
