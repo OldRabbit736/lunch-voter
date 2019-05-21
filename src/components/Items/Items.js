@@ -14,7 +14,8 @@ const items = (props) => {
                         <Item name={store.name}
                             key={store.id} id={store.id} checked={store.checked}
                             onCheckedChange={props.onCheckedChange}
-                            storeClicked={props.storeClicked} />
+                            storeClicked={props.storeClicked}
+                            index={index} />
                     );
                 })
             }

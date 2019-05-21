@@ -10,10 +10,11 @@ const item = (props) => {
                 checked={props.checked}
                 onChange={props.onCheckedChange}
             />
+            <label className={classes.label}>{props.index + 1}.</label>
             <p className={classes.store}
                 id={props.name}
                 onClick={props.storeClicked}>
-                {props.name}
+                {'\u00A0'}{props.name}
             </p>
         </div>
     );

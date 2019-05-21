@@ -10,3 +10,9 @@
 .store:hover {
     color: rgb(48, 187, 102);
 }
+
+.label {
+    display: inline-block;
+    width: 20px;
+    text-align: right;
+}
