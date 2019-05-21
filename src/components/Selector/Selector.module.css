@@ -21,4 +21,23 @@
 .inputId {
     margin-left: 10px;
     width: 100px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+
+.btn {
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 5px;
+    margin-right: 1px;
+    margin-top: 2px;
+    padding: 3px;
+}
+
+.btn:hover {
+    color: white;
+    background-color: rgb(77, 185, 82);
+    border: 1px solid rgb(77, 185, 82);
 }

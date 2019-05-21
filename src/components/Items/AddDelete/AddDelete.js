@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classes from './AddDelete.module.css';
 import "@firebase/polyfill";
 import firebase from 'firebase';
 
@@ -33,10 +34,10 @@ class AddDelete extends Component {
     render() {
         return (
             <div>
-                <input type="textfield" onChange={this.textChanged}
+                <input className={classes.input} type="textfield" onChange={this.textChanged}
                     value={this.state.text} />
-                <button onClick={this.addBtnClicked}>Add</button>
-                <button onClick={this.props.delBtnClicked}>Delete</button>
+                <button className={classes.btn} onClick={this.addBtnClicked}>Add</button>
+                <button className={classes.btn} onClick={this.props.delBtnClicked}>Delete</button>
             </div>
         );
     }

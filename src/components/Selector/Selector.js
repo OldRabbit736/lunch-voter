@@ -16,8 +16,8 @@ const selector = (props) => {
             </input>
 
             <br />
-            <button onClick={props.storeReset}>픽 리셋</button>
-            <button onClick={props.storeConfirm}>이 픽으로 간다!</button>
+            <button className={classes.btn} onClick={props.storeReset}>픽 리셋</button>
+            <button className={classes.btn} onClick={props.storeConfirm}>이 픽으로 간다!</button>
 
 
             <div>
