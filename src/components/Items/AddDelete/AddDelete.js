@@ -33,7 +33,7 @@ class AddDelete extends Component {
 
     render() {
         return (
-            <div>
+            <div className={classes.AddDelete}>
                 <input className={classes.input} type="textfield" onChange={this.textChanged}
                     value={this.state.text} />
                 <button className={classes.btn} onClick={this.addBtnClicked}>Add</button>
