@@ -25,6 +25,12 @@ class App extends Component {
 
     selectRandomly = () => {
         const numOfStores = this.state.stores.length;
+        // defense against when stores haven't been fetched or
+        // the number of stores is less than 3
+        if(numOfStores < 3) {
+            return;
+        }
+
         var random1 = Math.floor(Math.random() * numOfStores);
         var random2 = Math.floor(Math.random() * numOfStores);
         var random3 = Math.floor(Math.random() * numOfStores);
