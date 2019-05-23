@@ -10,15 +10,39 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+            // stores => [{id: '-Lf...', name: '호시', checked: false}, ...]
             stores: [],
+            // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
             sender: '',
             votes: [
-                
+
             ]
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
+    }
+
+    selectRandomly = () => {
+        const numOfStores = this.state.stores.length;
+        var random1 = Math.floor(Math.random() * numOfStores);
+        var random2 = Math.floor(Math.random() * numOfStores);
+        var random3 = Math.floor(Math.random() * numOfStores);
+        
+        while (random2 === random1) {
+            random2 = Math.floor(Math.random() * numOfStores);
+        };
+        while (random3 === random1 || random3 === random2) {
+            random3 = Math.floor(Math.random() * numOfStores);
+        }        
+
+        const randomStore1 = this.state.stores[random1].name;
+        const randomStore2 = this.state.stores[random2].name;
+        const randomStore3 = this.state.stores[random3].name;
+
+        const newSelectedStores = [];
+        newSelectedStores.push(randomStore1, randomStore2, randomStore3);
+        this.setState({ selectedStores: newSelectedStores });
     }
 
     delVoteBtnClicked = (event) => {
@@ -50,7 +74,7 @@ class App extends Component {
         // set selectedStores empty
         this.setState({ selectedStores: [] });
 
-        
+
     }
 
     storeConfirm = () => {
@@ -178,6 +202,7 @@ class App extends Component {
                 <Selector selectedStores={this.state.selectedStores}
                     storeReset={this.storeReset.bind(this)}
                     storeConfirm={this.storeConfirm.bind(this)}
+                    selectRandomly={this.selectRandomly.bind(this)}
                     sender={this.state.sender}
                     senderTyped={this.senderTyped.bind(this)} />
                 <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)} />

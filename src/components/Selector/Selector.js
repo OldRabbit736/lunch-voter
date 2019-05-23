@@ -18,6 +18,7 @@ const selector = (props) => {
             <br />
             <button className={classes.btn} onClick={props.storeReset}>픽 리셋</button>
             <button className={classes.btn} onClick={props.storeConfirm}>이 픽으로 간다!</button>
+            <button className={classes.btn} onClick={props.selectRandomly}>랜덤3</button>
 
 
             <div>
