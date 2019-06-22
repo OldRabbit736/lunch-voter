@@ -27,20 +27,20 @@ class App extends Component {
         const numOfStores = this.state.stores.length;
         // defense against when stores haven't been fetched or
         // the number of stores is less than 3
-        if(numOfStores < 3) {
+        if (numOfStores < 3) {
             return;
         }
 
         var random1 = Math.floor(Math.random() * numOfStores);
         var random2 = Math.floor(Math.random() * numOfStores);
         var random3 = Math.floor(Math.random() * numOfStores);
-        
+
         while (random2 === random1) {
             random2 = Math.floor(Math.random() * numOfStores);
         };
         while (random3 === random1 || random3 === random2) {
             random3 = Math.floor(Math.random() * numOfStores);
-        }        
+        }
 
         const randomStore1 = this.state.stores[random1].name;
         const randomStore2 = this.state.stores[random2].name;
@@ -74,6 +74,12 @@ class App extends Component {
 
         // update the state
         this.setState({ selectedStores: newSelectedStores });
+    }
+
+    storeClickedInPickedList = (index) => {
+        const newSelectedStores = [...this.state.selectedStores];
+        newSelectedStores.splice(index, 1);
+        this.setState({ selectedStores: newSelectedStores })
     }
 
     storeReset = () => {
@@ -210,7 +216,8 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     selectRandomly={this.selectRandomly.bind(this)}
                     sender={this.state.sender}
-                    senderTyped={this.senderTyped.bind(this)} />
+                    senderTyped={this.senderTyped.bind(this)}
+                    storeClickedInPickedList={this.storeClickedInPickedList.bind(this)} />
                 <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)} />
             </div>
         );

@@ -24,7 +24,9 @@ const selector = (props) => {
             <div>
                 {props.selectedStores.map((store, index) => {
                     return (
-                        <li className={classes.list} key={index + 1}>{index + 1}>  {store}</li>
+                        <li className={classes.list} key={index + 1}
+                            onClick={() => props.storeClickedInPickedList(index)}>
+                            {index + 1}>  {store}</li>
                     )
                 })}
             </div>

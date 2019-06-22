@@ -19,6 +19,11 @@
     list-style: none;
 }
 
+.list:hover {
+    color: rgb(77, 185, 82);
+    cursor: pointer;
+}
+
 .inputId {
     margin-left: 10px;
     width: 100px;
