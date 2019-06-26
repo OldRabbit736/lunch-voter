@@ -86,7 +86,6 @@ class App extends Component {
         // set selectedStores empty
         this.setState({ selectedStores: [] });
 
-
     }
 
     storeConfirm = () => {

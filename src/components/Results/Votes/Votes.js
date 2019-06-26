@@ -7,7 +7,7 @@ const votes = (props) => {
         <div className={classes.Votes}>
             {props.votes.map((vote) => {
                 return (
-                    <Vote vote={vote} key={vote.id} id={vote.id} onClicked={props.onClicked}/>
+                    <Vote vote={vote} key={vote.id} id={vote.id} onClicked={props.onClicked} notYet={props.notYet}/>
                 )
             })}
         </div>
