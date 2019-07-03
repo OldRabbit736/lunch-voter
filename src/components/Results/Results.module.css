@@ -4,7 +4,25 @@
     margin-right: 30px;
 }
 
-.h2 {
+.h2 {    
     margin-top: 0px;
     margin-bottom: 3px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.help {
+    display: inline-block;
+    border: 1px solid #ff611d;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    text-align: center;
+    cursor: pointer;    
+    color: #ff611d;
+    transition: background-color 0.2s;
+}
+.help:hover {
+    background: #ff611d;
+    color: white;
 }

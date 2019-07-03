@@ -20,7 +20,7 @@
 }
 
 .list:hover {
-    color: rgb(77, 185, 82);
+    color: #ff611d;
     cursor: pointer;
 }
 
@@ -44,6 +44,6 @@
 
 .btn:hover {
     color: white;
-    background-color: rgb(77, 185, 82);
-    border: 1px solid rgb(77, 185, 82);
+    background-color: #ff611d;
+    border: 1px solid #ff611d;
 }

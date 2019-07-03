@@ -52,28 +52,35 @@ const results = (props) => {
 
     const criteria = new Date(2019, 6, 25, 11, 30);
     const today = new Date();
-    var notYet = false;
+    var open = false;
 
-    if (criteria.getHours > today.getHours) {
-        notYet = true;
-    } else if (criteria.getHours === today.getHours) {
-        if (criteria.getMinutes >= today.getMinutes) {
-            notYet = true;
+    var hour = 1;
+    var minutes = 10;    
+
+    if (hour > criteria.getHours()) {        
+        open = true;
+    } else if (hour === criteria.getHours()) {
+        if (minutes >= criteria.getMinutes()) {
+            open = true;
         }
-    }
-    notYet = false;
+    }    
 
     return (
         <div className={classes.Results}>
             <h2 className={classes.h2}>Results</h2>
-            {notYet ? <div>
-                <Result store={scoresArr[0]} />
-                <Result store={scoresArr[1]} />
-                <Result store={scoresArr[2]} />
-                <Result store={scoresArr[3]} />
-            </div> : <div>결과는 오전 11:30 부터 표시됩니다.</div>}
+            <span className={classes.help}>?</span>
+            {open ?
+                <div>
+                    <Result store={scoresArr[0]} />
+                    <Result store={scoresArr[1]} />
+                    <Result store={scoresArr[2]} />
+                    <Result store={scoresArr[3]} />
+                </div>
+                :
+                <div>결과는 오전 11:30 부터 표시됩니다.</div>
+            }
 
-            <Votes votes={props.votes} onClicked={props.onClicked} notYet={notYet} />
+            <Votes votes={props.votes} onClicked={props.onClicked} open={open} />
         </div>
     )
 }
