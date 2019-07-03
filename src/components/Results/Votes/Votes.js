@@ -7,7 +7,10 @@ const votes = (props) => {
         <div className={classes.Votes}>
             {props.votes.map((vote) => {
                 return (
-                    <Vote vote={vote} key={vote.id} id={vote.id} onClicked={props.onClicked} open={props.open}/>
+                    <Vote vote={vote} key={vote.id} id={vote.id}
+                        delVoteBtnClicked={props.delVoteBtnClicked}
+                        showVoteBtnClicked={props.showVoteBtnClicked}
+                        open={props.open} />
                 )
             })}
         </div>

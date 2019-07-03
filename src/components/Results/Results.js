@@ -54,7 +54,7 @@ const results = (props) => {
     const today = new Date();
     var open = false;
 
-    var hour = 1;
+    var hour = 13;
     var minutes = 10;    
 
     if (hour > criteria.getHours()) {        
@@ -84,7 +84,10 @@ const results = (props) => {
                 <div>결과는 오전 11:30 부터 표시됩니다.</div>
             }
 
-            <Votes votes={props.votes} onClicked={props.onClicked} open={open} />
+            <Votes votes={props.votes}
+            delVoteBtnClicked={props.delVoteBtnClicked}
+            showVoteBtnClicked={props.showVoteBtnClicked}
+            open={open} />
         </div>
     )
 }

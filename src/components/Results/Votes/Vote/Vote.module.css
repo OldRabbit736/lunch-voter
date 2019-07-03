@@ -20,11 +20,29 @@
 
 .delBtn:hover {
     color: white;
-    background-color: #ff611d;
-    border: 1px solid #ff611d;
+    background-color: #ff23ab;
+    border: 1px solid #ff23ab;
 }
+
+.showBtn {
+    float: right;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.showBtn:hover {
+    color: white;
+    background-color: #ff793f;
+    border: 1px solid #ff793f;
+}
+
+
 
 .h3 {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+

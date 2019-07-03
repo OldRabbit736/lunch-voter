@@ -10,15 +10,15 @@ const selector = (props) => {
             <div>
                 <label className={classes.label2}>제출자</label>
                 <input
-                    className={classes.inputId} type="text"
-                    onChange={props.typedId}
+                    className={classes.input} type="text"
+                    onChange={props.typedSender}
                     value={props.sender}>
                 </input>
             </div>
             <div>
                 <label className={classes.label2}>비번</label>
                 <input
-                    className={classes.inputId} type="text"
+                    className={classes.input} type="text"
                     onChange={props.typedPassword}
                     value={props.password}>
                 </input>

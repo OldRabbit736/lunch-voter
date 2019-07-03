@@ -6,7 +6,12 @@ const vote = (props) => {
         <div className={classes.Vote}>
             <label className={classes.label}>{props.vote.name}</label>
             <label className={classes.label}>{props.vote.time}</label>
-            <button className={classes.delBtn} id={props.id} onClick={props.onClicked}>del</button>
+            
+            <button className={classes.delBtn}
+            id={props.id} onClick={props.delVoteBtnClicked}>del</button>
+            <button className={classes.showBtn}
+            id={props.id} onClick={props.showVoteBtnClicked}>show</button>
+
             {props.open ? props.vote.picks.map((pick, index) => {
                 return (
                     <h3 className={classes.h3} key={index}>{index + 1}픽 {pick}</h3>

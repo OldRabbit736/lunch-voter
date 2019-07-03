@@ -63,7 +63,29 @@ class App extends Component {
         }
     }
 
-    typedId = (event) => {
+    showVoteBtnClicked = (event) => {
+        // var vote = {
+        //     id: key,
+        //     name: votesObj[key].name,
+        //     password: votesObj[key].password,
+        //     picks: votesObj[key].picks,
+        //     time: votesObj[key].time
+        // }
+        const messagePicks = (picks) =>
+            `1픽 ${picks[0]}\n2픽 ${picks[1]}\n3픽 ${picks[2]}`;
+
+        const id = event.target.id;
+        const theVote = this.state.votes.filter((vote) =>
+            vote.id === id
+        );
+
+        const answer = prompt('비번 입력 하세요');
+        if (answer === theVote[0].password) {
+            alert(messagePicks(theVote[0].picks));
+        }
+    }
+
+    typedSender = (event) => {
         this.setState({ sender: event.target.value });
     }
 
@@ -116,6 +138,7 @@ class App extends Component {
         // - prepare information object
         const infoObj = {
             name: this.state.sender,
+            password: this.state.password,
             time: timeVal,
             picks: {}
         }
@@ -129,7 +152,7 @@ class App extends Component {
         this.votesRef.child(dateRef).push(infoObj);
 
         // - clear picks
-        this.setState({ selectedStores: [], sender: '' });
+        this.setState({ selectedStores: [], sender: '', password: '', });
 
     }
 
@@ -169,6 +192,8 @@ class App extends Component {
         }
     }
 
+
+
     componentDidMount() {
         // retrieve store list
         this.storesRef.on('value', (snapshot) => {
@@ -198,6 +223,7 @@ class App extends Component {
                     var vote = {
                         id: key,
                         name: votesObj[key].name,
+                        password: votesObj[key].password,
                         picks: votesObj[key].picks,
                         time: votesObj[key].time
                     }
@@ -221,10 +247,13 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     selectRandomly={this.selectRandomly.bind(this)}
                     sender={this.state.sender}
-                    typedId={this.typedId.bind(this)}
+                    password={this.state.password}
+                    typedSender={this.typedSender.bind(this)}
                     typedPassword={this.typedPassword.bind(this)}
                     storeClickedInPickedList={this.storeClickedInPickedList.bind(this)} />
-                <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)} />
+                <Results votes={this.state.votes}
+                    delVoteBtnClicked={this.delVoteBtnClicked.bind(this)}
+                    showVoteBtnClicked={this.showVoteBtnClicked.bind(this)} />
             </div>
         );
     }
