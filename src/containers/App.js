@@ -120,12 +120,12 @@ class App extends Component {
         // validate the number of selected stores
         const length = this.state.selectedStores.length;
         if (length === 0) {
-            alert('가게 적어도 1개 선택해야 함');
+            alert('가게는 적어도 1개 이상 선택하세요.');
             return;
         }
         // validate the sender name
         if (this.state.sender === '') {
-            alert('제출자 빈칸임');
+            alert('제출자는 꼭 입력해야 합니다.');
             return;
         }
 

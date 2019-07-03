@@ -52,15 +52,12 @@ const results = (props) => {
 
     const criteria = new Date(2019, 6, 25, 11, 30);
     const today = new Date();
-    var open = false;
+    var open = false;  
 
-    var hour = 13;
-    var minutes = 10;    
-
-    if (hour > criteria.getHours()) {        
+    if (today.getHours() > criteria.getHours()) {        
         open = true;
-    } else if (hour === criteria.getHours()) {
-        if (minutes >= criteria.getMinutes()) {
+    } else if (today.getHours() === criteria.getHours()) {
+        if (today.getMinutes() >= criteria.getMinutes()) {
             open = true;
         }
     }
