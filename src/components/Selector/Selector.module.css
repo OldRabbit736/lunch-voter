@@ -47,3 +47,8 @@
     background-color: #ff611d;
     border: 1px solid #ff611d;
 }
+
+.label2 {
+    display: inline-block;
+    width: 50px;
+}

@@ -12,12 +12,14 @@ class App extends Component {
         this.state = {
             // stores => [{id: '-Lf...', name: '호시', checked: false}, ...]
             stores: [],
+            votes: [
+
+            ],
             // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
             sender: '',
-            votes: [
+            password: '',
 
-            ]
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
@@ -61,8 +63,12 @@ class App extends Component {
         }
     }
 
-    senderTyped = (event) => {
+    typedId = (event) => {
         this.setState({ sender: event.target.value });
+    }
+
+    typedPassword = (event) => {
+        this.setState({ password: event.target.value });
     }
 
     storeClicked = (event) => {
@@ -215,7 +221,8 @@ class App extends Component {
                     storeConfirm={this.storeConfirm.bind(this)}
                     selectRandomly={this.selectRandomly.bind(this)}
                     sender={this.state.sender}
-                    senderTyped={this.senderTyped.bind(this)}
+                    typedId={this.typedId.bind(this)}
+                    typedPassword={this.typedPassword.bind(this)}
                     storeClickedInPickedList={this.storeClickedInPickedList.bind(this)} />
                 <Results votes={this.state.votes} onClicked={this.delVoteBtnClicked.bind(this)} />
             </div>

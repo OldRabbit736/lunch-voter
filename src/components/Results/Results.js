@@ -63,12 +63,16 @@ const results = (props) => {
         if (minutes >= criteria.getMinutes()) {
             open = true;
         }
-    }    
+    }
+
+    const helpPop = () => {
+        alert('리스트 정렬 로직\n1) 총점 높은 순\n2) 총점이 같은 것 끼리는 \'금은동\' 로직 적용\n3) \'금은동\'마저 같은 것 끼리는 먼저 등록된 순');
+    }
 
     return (
         <div className={classes.Results}>
             <h2 className={classes.h2}>Results</h2>
-            <span className={classes.help}>?</span>
+            <span className={classes.help} onClick={helpPop}>?</span>
             {open ?
                 <div>
                     <Result store={scoresArr[0]} />
