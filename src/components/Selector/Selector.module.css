@@ -26,7 +26,7 @@
 
 .input {
     margin-left: 10px;
-    width: 100px;
+    width: 132px;
     border-radius: 3px;
     border: 1px solid #ccc;
     padding: 3px;
@@ -42,13 +42,31 @@
     padding: 3px;
 }
 
-.btn:hover {
+.btn:hover,
+.btnConfirm:hover {
     color: white;
     background-color: #ff611d;
     border: 1px solid #ff611d;
 }
 
+.btnConfirm {
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 5px;
+    margin-right: 1px;
+    margin-top: 2px;
+    padding: 3px;
+
+    width: 200px;
+}
+
+
+
 .label2 {
     display: inline-block;
     width: 50px;
+}
+.padding {
+    margin-top: 10px;
 }
