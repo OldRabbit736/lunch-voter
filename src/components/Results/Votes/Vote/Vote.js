@@ -4,13 +4,15 @@ import classes from './Vote.module.css';
 const vote = (props) => {
     return (
         <div className={classes.Vote}>
-            <label className={classes.label}>{props.vote.name}</label>
-            <label className={classes.label}>{props.vote.time}</label>
-            
+            <label className={classes.labelName}>{props.vote.name}</label>
+
             <button className={classes.delBtn}
-            id={props.id} onClick={props.delVoteBtnClicked}>del</button>
+                id={props.id} onClick={props.delVoteBtnClicked}>del</button>
             <button className={classes.showBtn}
-            id={props.id} onClick={props.showVoteBtnClicked}>show</button>
+                id={props.id} onClick={props.showVoteBtnClicked}>show</button>
+
+            <label className={classes.labelTime}>{props.vote.time}</label>
+
 
             {props.open ? props.vote.picks.map((pick, index) => {
                 return (
