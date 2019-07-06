@@ -22,7 +22,7 @@ class App extends Component {
             // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
             sender: '',
-            password: '',            
+            password: '',
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
@@ -59,12 +59,14 @@ class App extends Component {
     //-------------------------------- FOR SELECTOR --------------------------------//
     //////////////////////////////////////////////////////////////////////////////////
     storeConfirm = () => {
+        const today = new Date();
+
         // validate time-fence
-        const fence = this.HoursMinutesComparer(this.criteria, new Date());
+        const fence = this.HoursMinutesComparer(this.criteria, today);
         if (fence !== -1) {
             alert('결과가 공개된 후이므로 더 이상의 투표는 불가합니다.');
             return;
-        }        
+        }
 
         // TODO: validate reveal status
 
@@ -81,8 +83,6 @@ class App extends Component {
             return;
         }
 
-        // send the stores to the server        
-        const today = new Date();
         // - set the key value
         const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         // - set the time property
@@ -235,6 +235,19 @@ class App extends Component {
 
     revealBtnClicked = () => {
         console.log('reveal button clicked!');
+        
+        const today = new Date();
+        const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
+        
+        // - prepare information object
+        const revealObj = {            
+            time: timeVal,
+            pushed: true,
+        };
+        
+        // - send it to the server
+        this.votesRef.child(dateRef).child('states').child('reveal').set(revealObj);
     }
 
     //////////////////////////////////////////////////////////////////////////////////
