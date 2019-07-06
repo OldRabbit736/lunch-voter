@@ -7,21 +7,22 @@ import "@firebase/polyfill";
 import firebase from 'firebase';
 
 class App extends Component {
-    criteria = new Date(2019, 7, 1, 11, 30);
+    criteria = new Date(2019, 7, 1, 23, 59);
 
     constructor() {
         super();
         this.state = {
             // stores => [{id: '-Lf...', name: '호시', checked: false}, ...]
             stores: [],
-            votes: [
-
-            ],
+            votes: [],
+            reveal: {
+                pushed: false,
+                time: null,
+            },
             // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
             sender: '',
-            password: '',
-
+            password: '',            
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
@@ -100,7 +101,7 @@ class App extends Component {
             infoObj.picks[i] = this.state.selectedStores[i];
         }
         // - send it to the server
-        this.votesRef.child(dateRef).push(infoObj);
+        this.votesRef.child(dateRef).child('papers').push(infoObj);
 
         // - clear picks
         this.setState({ selectedStores: [], sender: '', password: '', });
@@ -213,7 +214,7 @@ class App extends Component {
         if (answer) {
             const today = new Date();
             const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-            this.votesRef.child(dateRef).child(event.target.id).remove();
+            this.votesRef.child(dateRef).child('papers').child(event.target.id).remove();
         }
     }
 
@@ -256,11 +257,11 @@ class App extends Component {
             this.setState({ stores: newStores });
         });
 
-        // retrieve votes for today
+        // retrieve papers for today
         this.votesRef.on('value', (snapshot) => {
             const today = new Date();
             const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-            const votesObj = snapshot.child(dateRef).val();
+            const votesObj = snapshot.child(dateRef).child('papers').val();
             const newVotes = [];
 
             for (var key in votesObj) {
