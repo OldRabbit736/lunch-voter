@@ -71,7 +71,9 @@ const results = (props) => {
             <h2 className={classes.h2}>Results</h2>
             <span className={classes.help} onClick={helpPop}>?</span>
             {revealOpen && revealTime !== null ?
-                <p className={classes.revealNotice}>누군가가 {revealTime}에 reveal 했습니다.</p> : null}
+                <p className={classes.revealNotice}>결과 공개:<br />누군가가 {revealTime}에 reveal 했습니다.</p> : null}
+            {timeOpen ?
+                <p className={classes.revealNotice}>결과 공개:<br />기준 시간 {props.criteria.getHours()}시 {props.criteria.getMinutes()}분을 지났습니다.</p> : null}
             {open ?
                 <div>
                     <Result store={scoresArr[0]} />
@@ -81,7 +83,7 @@ const results = (props) => {
                 </div>
                 :
                 <div>
-                    <p className={classes.script}>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 이후가 되거나<br />
+                    <p className={classes.script}>결과는 {props.criteria.getHours()}시 {props.criteria.getMinutes()}분 이후가 되거나<br />
                         누군가가 Reveal 버튼을 누르면 공개됩니다.<br />단, 공개 이후에는 투표가 막히게 됩니다.</p>
                     <button
                         className={classes.revealBtn}
