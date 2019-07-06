@@ -58,6 +58,16 @@ class App extends Component {
     //-------------------------------- FOR SELECTOR --------------------------------//
     //////////////////////////////////////////////////////////////////////////////////
     storeConfirm = () => {
+        // validate time-fence
+        const fence = this.HoursMinutesComparer(this.criteria, new Date());
+        if (fence !== -1) {
+            alert('결과가 공개된 후이므로 더 이상의 투표는 불가합니다.');
+            return;
+        }        
+
+        // TODO: validate reveal status
+
+
         // validate the number of selected stores
         const length = this.state.selectedStores.length;
         if (length === 0) {

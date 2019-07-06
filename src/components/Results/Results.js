@@ -69,7 +69,8 @@ const results = (props) => {
                 </div>
                 :
                 <div>
-                    <p>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 부터 표시됩니다.</p>
+                    <p className={classes.script}>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 이후가 되거나<br/>
+                    Reveal 버튼을 누르면 공개됩니다.<br/>단, 공개 이후에는 투표가 막히게 됩니다.</p>
                     <button
                         className={classes.revealBtn}
                         onClick={props.revealBtnClicked}
