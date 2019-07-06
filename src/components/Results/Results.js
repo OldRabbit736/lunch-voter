@@ -49,18 +49,8 @@ const results = (props) => {
     };
 
     scoresArr.sort(scoreComparator);
-
-    const criteria = new Date(2019, 6, 25, 11, 30);
-    const today = new Date();
-    var open = false;  
-
-    if (today.getHours() > criteria.getHours()) {        
-        open = true;
-    } else if (today.getHours() === criteria.getHours()) {
-        if (today.getMinutes() >= criteria.getMinutes()) {
-            open = true;
-        }
-    }
+        
+    const open = props.HoursMinutesComparer(props.criteria, new Date());    
 
     const helpPop = () => {
         alert('리스트 정렬 로직\n1) 총점 높은 순\n2) 총점이 같은 것 끼리는 \'금은동\' 로직 적용\n3) \'금은동\'마저 같은 것 끼리는 먼저 등록된 순');
@@ -70,7 +60,7 @@ const results = (props) => {
         <div className={classes.Results}>
             <h2 className={classes.h2}>Results</h2>
             <span className={classes.help} onClick={helpPop}>?</span>
-            {open ?
+            {open !== -1 ?
                 <div>
                     <Result store={scoresArr[0]} />
                     <Result store={scoresArr[1]} />
@@ -78,7 +68,7 @@ const results = (props) => {
                     <Result store={scoresArr[3]} />
                 </div>
                 :
-                <div>결과는 오전 11:30 부터 표시됩니다.</div>
+                <div>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 부터 표시됩니다.</div>
             }
 
             <Votes votes={props.votes}

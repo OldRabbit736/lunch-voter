@@ -7,6 +7,8 @@ import "@firebase/polyfill";
 import firebase from 'firebase';
 
 class App extends Component {
+    criteria = new Date(2019, 7, 1, 11, 30);
+
     constructor() {
         super();
         this.state = {
@@ -23,6 +25,33 @@ class App extends Component {
         };
         this.storesRef = firebase.database().ref('stores');
         this.votesRef = firebase.database().ref('votes');
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    //---------------------------------- HELPERS -----------------------------------//
+    //////////////////////////////////////////////////////////////////////////////////
+    HoursMinutesComparer(date1, date2) {
+        if (date1.getHours() > date2.getHours()) {
+            return -1;
+        }
+
+        if (date1.getHours() < date2.getHours()) {
+            return 1;
+        }
+
+        if (date1.getHours() === date2.getHours()) {
+            if (date1.getMinutes() > date2.getMinutes()) {
+                return -1;
+            }
+
+            if (date1.getMinutes() < date2.getMinutes()) {
+                return 1;
+            }
+
+            if (date1.getMinutes() === date2.getMinutes()) {
+                return 0;
+            }
+        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -255,7 +284,9 @@ class App extends Component {
                     storeClickedInPickedList={this.storeClickedInPickedList.bind(this)} />
                 <Results votes={this.state.votes}
                     delVoteBtnClicked={this.delVoteBtnClicked.bind(this)}
-                    showVoteBtnClicked={this.showVoteBtnClicked.bind(this)} />
+                    showVoteBtnClicked={this.showVoteBtnClicked.bind(this)}
+                    criteria={this.criteria}
+                    HoursMinutesComparer={this.HoursMinutesComparer.bind(this)} />
             </div>
         );
     }
