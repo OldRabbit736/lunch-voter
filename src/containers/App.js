@@ -16,7 +16,7 @@ class App extends Component {
             stores: [],
             votes: [],
             reveal: {
-               
+
             },
             // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
@@ -68,7 +68,12 @@ class App extends Component {
         }
 
         // TODO: validate reveal status
-
+        if (this.state.reveal !== null && this.state.reveal !== undefined) {
+            if (this.state.reveal.pushed === true) {
+                alert('결과가 공개된 후이므로 더 이상의 투표는 불가합니다.');
+                return;
+            }
+        }
 
         // validate the number of selected stores
         const length = this.state.selectedStores.length;
