@@ -222,6 +222,10 @@ class App extends Component {
         }
     }
 
+    revealBtnClicked = () => {
+        console.log('reveal button clicked!');
+    }
+
     //////////////////////////////////////////////////////////////////////////////////
     //---------------------------------- FOR APP -----------------------------------//
     //////////////////////////////////////////////////////////////////////////////////
@@ -286,7 +290,8 @@ class App extends Component {
                     delVoteBtnClicked={this.delVoteBtnClicked.bind(this)}
                     showVoteBtnClicked={this.showVoteBtnClicked.bind(this)}
                     criteria={this.criteria}
-                    HoursMinutesComparer={this.HoursMinutesComparer.bind(this)} />
+                    HoursMinutesComparer={this.HoursMinutesComparer.bind(this)}
+                    revealBtnClicked={this.revealBtnClicked.bind(this)} />
             </div>
         );
     }

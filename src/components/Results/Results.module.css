@@ -22,7 +22,22 @@
     color: #ff611d;
     transition: background-color 0.2s;
 }
+
 .help:hover {
     background: #ff611d;
     color: white;
+}
+
+.revealBtn {    
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.revealBtn:hover {
+    color: white;
+    background-color: #ff23ab;
+    border: 1px solid #ff23ab;
 }
