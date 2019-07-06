@@ -50,7 +50,17 @@ const results = (props) => {
 
     scoresArr.sort(scoreComparator);
 
-    const open = props.HoursMinutesComparer(props.criteria, new Date());
+    const timeOpen = props.HoursMinutesComparer(props.criteria, new Date()) === -1 ? false : true;
+    let revealOpen;
+    let revealTime;
+    if (props.reveal === null || props.reveal === undefined) {
+        revealOpen = false;
+        revealTime = null;
+    } else {
+        revealOpen = props.reveal.pushed;
+        revealTime = props.reveal.time;
+    }
+    const open = timeOpen || revealOpen;
 
     const helpPop = () => {
         alert('리스트 정렬 로직\n1) 총점 높은 순\n2) 총점이 같은 것 끼리는 \'금은동\' 로직 적용\n3) \'금은동\'마저 같은 것 끼리는 먼저 등록된 순');
@@ -60,7 +70,9 @@ const results = (props) => {
         <div className={classes.Results}>
             <h2 className={classes.h2}>Results</h2>
             <span className={classes.help} onClick={helpPop}>?</span>
-            {open !== -1 ?
+            {revealOpen && revealTime !== null ?
+                <p className={classes.revealNotice}>누군가가 {revealTime}에 reveal 했습니다.</p> : null}
+            {open ?
                 <div>
                     <Result store={scoresArr[0]} />
                     <Result store={scoresArr[1]} />
@@ -69,14 +81,15 @@ const results = (props) => {
                 </div>
                 :
                 <div>
-                    <p className={classes.script}>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 이후가 되거나<br/>
-                    Reveal 버튼을 누르면 공개됩니다.<br/>단, 공개 이후에는 투표가 막히게 됩니다.</p>
+                    <p className={classes.script}>결과는 {props.criteria.getHours()}:{props.criteria.getMinutes()} 이후가 되거나<br />
+                        누군가가 Reveal 버튼을 누르면 공개됩니다.<br />단, 공개 이후에는 투표가 막히게 됩니다.</p>
                     <button
                         className={classes.revealBtn}
                         onClick={props.revealBtnClicked}
                     >Reveal</button>
                 </div>
             }
+
 
             <Votes votes={props.votes}
                 delVoteBtnClicked={props.delVoteBtnClicked}

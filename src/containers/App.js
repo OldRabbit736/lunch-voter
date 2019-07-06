@@ -7,7 +7,7 @@ import "@firebase/polyfill";
 import firebase from 'firebase';
 
 class App extends Component {
-    criteria = new Date(2019, 7, 1, 23, 59);
+    criteria = new Date(2019, 7, 1, 11, 30);
 
     constructor() {
         super();
@@ -16,8 +16,7 @@ class App extends Component {
             stores: [],
             votes: [],
             reveal: {
-                pushed: false,
-                time: null,
+               
             },
             // selectedStores => ['육개장', '호시', ... ]
             selectedStores: [],
@@ -234,18 +233,16 @@ class App extends Component {
     }
 
     revealBtnClicked = () => {
-        console.log('reveal button clicked!');
-        
         const today = new Date();
         const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
-        
+
         // - prepare information object
-        const revealObj = {            
+        const revealObj = {
             time: timeVal,
             pushed: true,
         };
-        
+
         // - send it to the server
         this.votesRef.child(dateRef).child('states').child('reveal').set(revealObj);
     }
@@ -268,6 +265,14 @@ class App extends Component {
                 }
             }
             this.setState({ stores: newStores });
+        });
+
+        // retrieve reveal states
+        const today = new Date();
+        const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        this.votesRef.child(dateRef).child('states').child('reveal').on('value', (snapshot) => {
+            const newReveal = snapshot.val();
+            this.setState({ reveal: newReveal });
         });
 
         // retrieve papers for today
@@ -315,7 +320,8 @@ class App extends Component {
                     showVoteBtnClicked={this.showVoteBtnClicked.bind(this)}
                     criteria={this.criteria}
                     HoursMinutesComparer={this.HoursMinutesComparer.bind(this)}
-                    revealBtnClicked={this.revealBtnClicked.bind(this)} />
+                    revealBtnClicked={this.revealBtnClicked.bind(this)}
+                    reveal={this.state.reveal} />
             </div>
         );
     }
