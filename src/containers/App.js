@@ -25,97 +25,9 @@ class App extends Component {
         this.votesRef = firebase.database().ref('votes');
     }
 
-    selectRandomly = () => {
-        const numOfStores = this.state.stores.length;
-        // defense against when stores haven't been fetched or
-        // the number of stores is less than 3
-        if (numOfStores < 3) {
-            return;
-        }
-
-        var random1 = Math.floor(Math.random() * numOfStores);
-        var random2 = Math.floor(Math.random() * numOfStores);
-        var random3 = Math.floor(Math.random() * numOfStores);
-
-        while (random2 === random1) {
-            random2 = Math.floor(Math.random() * numOfStores);
-        };
-        while (random3 === random1 || random3 === random2) {
-            random3 = Math.floor(Math.random() * numOfStores);
-        }
-
-        const randomStore1 = this.state.stores[random1].name;
-        const randomStore2 = this.state.stores[random2].name;
-        const randomStore3 = this.state.stores[random3].name;
-
-        const newSelectedStores = [];
-        newSelectedStores.push(randomStore1, randomStore2, randomStore3);
-        this.setState({ selectedStores: newSelectedStores });
-    }
-
-    delVoteBtnClicked = (event) => {
-
-        const answer = window.confirm('해당 투표 삭제할까요?');
-        if (answer) {
-            const today = new Date();
-            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-            this.votesRef.child(dateRef).child(event.target.id).remove();
-        }
-    }
-
-    showVoteBtnClicked = (event) => {
-        // var vote = {
-        //     id: key,
-        //     name: votesObj[key].name,
-        //     password: votesObj[key].password,
-        //     picks: votesObj[key].picks,
-        //     time: votesObj[key].time
-        // }
-        const messagePicks = (picks) =>
-            `1픽 ${picks[0]}\n2픽 ${picks[1]}\n3픽 ${picks[2]}`;
-
-        const id = event.target.id;
-        const theVote = this.state.votes.filter((vote) =>
-            vote.id === id
-        );
-
-        const answer = prompt('비번 입력 하세요');
-        if (answer === theVote[0].password) {
-            alert(messagePicks(theVote[0].picks));
-        }
-    }
-
-    typedSender = (event) => {
-        this.setState({ sender: event.target.value });
-    }
-
-    typedPassword = (event) => {
-        this.setState({ password: event.target.value });
-    }
-
-    storeClicked = (event) => {
-        // highlight selected store
-
-        // add the store id and name to the selected stores        
-        const newSelectedStores = [...this.state.selectedStores];
-        newSelectedStores.push(event.target.id);
-
-        // update the state
-        this.setState({ selectedStores: newSelectedStores });
-    }
-
-    storeClickedInPickedList = (index) => {
-        const newSelectedStores = [...this.state.selectedStores];
-        newSelectedStores.splice(index, 1);
-        this.setState({ selectedStores: newSelectedStores })
-    }
-
-    storeReset = () => {
-        // set selectedStores empty
-        this.setState({ selectedStores: [] });
-
-    }
-
+    //////////////////////////////////////////////////////////////////////////////////
+    //-------------------------------- FOR SELECTOR --------------------------------//
+    //////////////////////////////////////////////////////////////////////////////////
     storeConfirm = () => {
         // validate the number of selected stores
         const length = this.state.selectedStores.length;
@@ -156,6 +68,67 @@ class App extends Component {
 
     }
 
+    storeReset = () => {
+        // set selectedStores empty
+        this.setState({ selectedStores: [] });
+    }
+
+    selectRandomly = () => {
+        const numOfStores = this.state.stores.length;
+        // defense against when stores haven't been fetched or
+        // the number of stores is less than 3
+        if (numOfStores < 3) {
+            return;
+        }
+
+        var random1 = Math.floor(Math.random() * numOfStores);
+        var random2 = Math.floor(Math.random() * numOfStores);
+        var random3 = Math.floor(Math.random() * numOfStores);
+
+        while (random2 === random1) {
+            random2 = Math.floor(Math.random() * numOfStores);
+        };
+        while (random3 === random1 || random3 === random2) {
+            random3 = Math.floor(Math.random() * numOfStores);
+        }
+
+        const randomStore1 = this.state.stores[random1].name;
+        const randomStore2 = this.state.stores[random2].name;
+        const randomStore3 = this.state.stores[random3].name;
+
+        const newSelectedStores = [];
+        newSelectedStores.push(randomStore1, randomStore2, randomStore3);
+        this.setState({ selectedStores: newSelectedStores });
+    }
+
+    storeClickedInPickedList = (index) => {
+        const newSelectedStores = [...this.state.selectedStores];
+        newSelectedStores.splice(index, 1);
+        this.setState({ selectedStores: newSelectedStores })
+    }
+
+    typedSender = (event) => {
+        this.setState({ sender: event.target.value });
+    }
+
+    typedPassword = (event) => {
+        this.setState({ password: event.target.value });
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    //--------------------------------- FOR ITEMS ----------------------------------//
+    //////////////////////////////////////////////////////////////////////////////////
+    storeClicked = (event) => {
+        // highlight selected store
+
+        // add the store id and name to the selected stores        
+        const newSelectedStores = [...this.state.selectedStores];
+        newSelectedStores.push(event.target.id);
+
+        // update the state
+        this.setState({ selectedStores: newSelectedStores });
+    }
+
     handleChecked = (event) => {
         // find the id of the target
         const id = event.target.id;
@@ -192,8 +165,37 @@ class App extends Component {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////
+    //-------------------------------- FOR RESULTS ---------------------------------//
+    //////////////////////////////////////////////////////////////////////////////////
+    delVoteBtnClicked = (event) => {
 
+        const answer = window.confirm('해당 투표 삭제할까요?');
+        if (answer) {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+            this.votesRef.child(dateRef).child(event.target.id).remove();
+        }
+    }
 
+    showVoteBtnClicked = (event) => {
+        const messagePicks = (picks) =>
+            `1픽 ${picks[0]}\n2픽 ${picks[1]}\n3픽 ${picks[2]}`;
+
+        const id = event.target.id;
+        const theVote = this.state.votes.filter((vote) =>
+            vote.id === id
+        );
+
+        const answer = prompt('비번 입력 하세요');
+        if (answer === theVote[0].password) {
+            alert(messagePicks(theVote[0].picks));
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    //---------------------------------- FOR APP -----------------------------------//
+    //////////////////////////////////////////////////////////////////////////////////
     componentDidMount() {
         // retrieve store list
         this.storesRef.on('value', (snapshot) => {
