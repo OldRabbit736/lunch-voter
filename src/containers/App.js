@@ -58,7 +58,7 @@ class App extends Component {
         const answer = window.confirm('해당 투표 삭제할까요?');
         if (answer) {
             const today = new Date();
-            const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
             this.votesRef.child(dateRef).child(event.target.id).remove();
         }
     }
@@ -132,7 +132,7 @@ class App extends Component {
         // send the stores to the server        
         const today = new Date();
         // - set the key value
-        const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+        const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         // - set the time property
         const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
         // - prepare information object
@@ -214,7 +214,7 @@ class App extends Component {
         // retrieve votes for today
         this.votesRef.on('value', (snapshot) => {
             const today = new Date();
-            const dateRef = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
             const votesObj = snapshot.child(dateRef).val();
             const newVotes = [];
 
