@@ -1,8 +1,9 @@
 .Result {
-    
+    font-size: 20px;
 }
 
 .p {
     display: inline-block;
     margin: 5px;
+    margin-left: 0px;
 }
