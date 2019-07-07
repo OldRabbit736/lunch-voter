@@ -235,9 +235,30 @@ class App extends Component {
         if (answer === theVote[0].password) {
             alert(messagePicks(theVote[0].picks));
         }
+
+        // secret code
+        if (answer === '비공개') {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+            const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
+
+            // - prepare information object
+            const revealObj = {
+                time: timeVal,
+                pushed: false,
+            };
+
+            // - send it to the server
+            this.votesRef.child(dateRef).child('states').child('reveal').set(revealObj);
+        }
     }
 
     revealBtnClicked = () => {
+        const result = prompt('\'공개\'라고 적으세요');
+        if (result !== '공개') {
+            return;
+        }
+
         const today = new Date();
         const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
         const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
