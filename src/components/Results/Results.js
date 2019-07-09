@@ -72,7 +72,7 @@ const results = (props) => {
             <span className={classes.help} onClick={helpPop}>?</span>
             {revealOpen && revealTime !== null ?
                 <p className={classes.revealNotice}>결과 공개:<br />누군가가 {revealTime}에 reveal 했습니다.</p> : null}
-            {timeOpen ?
+            {timeOpen === true && !(revealOpen && revealTime !== null) ?
                 <p className={classes.revealNotice}>결과 공개:<br />기준 시간 {props.criteria.getHours()}시 {props.criteria.getMinutes()}분을 지났습니다.</p> : null}
             {open ?
                 <div>
