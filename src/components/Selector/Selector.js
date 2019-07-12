@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Selector.module.css'
 import gomgom from '../../resources/img/1.jpg';
+import ingredients from '../../resources/img/2.jpg';
 
 const selector = (props) => {
 
@@ -31,7 +32,7 @@ const selector = (props) => {
             <button className={classes.btn} onClick={props.selectRandomly}>랜덤3</button>
             <div>
                 {props.selectedStores.length === 0 ?
-                    <img className={classes.gomgom} src={gomgom} alt="곰곰..." /> :
+                    <img className={classes.img} src={ingredients} alt="곰곰..." /> :
                     props.selectedStores.map((store, index) => {
                         return (
                             <li className={classes.list} key={index + 1}
