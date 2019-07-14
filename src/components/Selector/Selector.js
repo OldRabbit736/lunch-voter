@@ -30,7 +30,7 @@ const selector = (props) => {
             <div className={classes.padding}></div>
             <button className={classes.btn} onClick={props.storeReset}>픽 리셋</button>
             <button className={classes.btn} onClick={props.selectRandomly}>랜덤3</button>
-            <div>
+            <div className={classes.pickedList}>
                 {props.selectedStores.length === 0 ?
                     <img className={classes.img} src={ingredients} alt="곰곰..." /> :
                     props.selectedStores.map((store, index) => {

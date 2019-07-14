@@ -61,8 +61,6 @@
     width: 200px;
 }
 
-
-
 .label2 {
     display: inline-block;
     width: 50px;
@@ -72,6 +70,9 @@
 }
 
 .img {
-    width: 200px;
+    width: 200px;    
+}
+
+.pickedList {
     margin-top: 10px;
 }
