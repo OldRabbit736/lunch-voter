@@ -15,7 +15,7 @@ const results = (props) => {
     // scoresObj => { 홍대개미 : [1, 0, 0], 매콤돈까스 : [0, 1, 0], ... }    
     for (var key1 in votes) {
         if (votes.hasOwnProperty(key1)) {
-            votes[key1].picks.map((pick, index) => {
+            votes[key1].picks.forEach((pick, index) => {
                 // make list of store names and count the picks
                 // cautious! pick is string so use [pick] not .pick
                 if (!scoresObj.hasOwnProperty(pick)) {

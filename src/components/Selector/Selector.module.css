@@ -43,13 +43,15 @@
 }
 
 .btn:hover,
-.btnConfirm:hover {
+.btnConfirm:hover,
+.btnPass:hover {
     color: white;
     background-color: #ff611d;
     border: 1px solid #ff611d;
 }
 
-.btnConfirm {
+.btnConfirm,
+.btnPass {
     cursor: pointer;
     background: #fff;
     border: 1px solid rgb(196, 196, 196);
@@ -58,7 +60,11 @@
     margin-top: 2px;
     padding: 3px;
 
-    width: 200px;
+    width: 140px;    
+}
+
+.btnPass {
+    width: 60px;
 }
 
 .label2 {

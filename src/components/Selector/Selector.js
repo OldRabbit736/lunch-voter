@@ -1,6 +1,5 @@
 import React from 'react';
 import classes from './Selector.module.css'
-import gomgom from '../../resources/img/1.jpg';
 import ingredients from '../../resources/img/2.jpg';
 
 const selector = (props) => {
@@ -26,13 +25,14 @@ const selector = (props) => {
                 </input>
             </div>
 
+            <button className={classes.btnPass}>패스</button>
             <button className={classes.btnConfirm} onClick={props.storeConfirm}>이 픽으로 간다!</button>
             <div className={classes.padding}></div>
             <button className={classes.btn} onClick={props.storeReset}>픽 리셋</button>
             <button className={classes.btn} onClick={props.selectRandomly}>랜덤3</button>
             <div className={classes.pickedList}>
                 {props.selectedStores.length === 0 ?
-                    <img className={classes.img} src={ingredients} alt="곰곰..." /> :
+                    <img className={classes.img} src={ingredients} alt="Ingredients..." /> :
                     props.selectedStores.map((store, index) => {
                         return (
                             <li className={classes.list} key={index + 1}
