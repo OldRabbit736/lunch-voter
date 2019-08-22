@@ -1,0 +1,35 @@
+.Pass {
+    margin-top: 6px;
+    padding: 5px;
+    border: 1px solid rgb(139, 139, 139);
+    border-radius: 5px;
+    width: 250px;    
+}
+
+.labelName {
+    margin-right: 10px;
+}
+
+.labelTime {
+    float: right;
+    margin-right: 10px;
+}
+
+.delBtn {
+    float: right;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 5px;
+}
+
+.delBtn:hover {
+    color: white;
+    background-color: #ff23ab;
+    border: 1px solid #ff23ab;
+}
+
+.h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

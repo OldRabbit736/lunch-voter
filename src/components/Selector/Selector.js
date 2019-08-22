@@ -25,7 +25,7 @@ const selector = (props) => {
                 </input>
             </div>
 
-            <button className={classes.btnPass}>패스</button>
+            <button className={classes.btnPass} onClick={props.passConfirm}>패스</button>
             <button className={classes.btnConfirm} onClick={props.storeConfirm}>이 픽으로 간다!</button>
             <div className={classes.padding}></div>
             <button className={classes.btn} onClick={props.storeReset}>픽 리셋</button>

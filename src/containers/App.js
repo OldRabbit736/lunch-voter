@@ -15,6 +15,7 @@ class App extends Component {
             // stores => [{id: '-Lf...', name: '호시', checked: false}, ...]
             stores: [],
             votes: [],
+            passes: [],
             reveal: {
 
             },
@@ -110,6 +111,47 @@ class App extends Component {
         // - clear picks
         this.setState({ selectedStores: [], sender: '', password: '', });
 
+    }
+
+    passConfirm = () => {
+        const today = new Date();
+
+        // validate time-fence
+        const fence = this.HoursMinutesComparer(this.criteria, today);
+        if (fence !== -1) {
+            alert('결과가 공개된 후이므로 더 이상의 투표는 불가합니다.');
+            return;
+        }
+
+        // TODO: validate reveal status
+        if (this.state.reveal !== null && this.state.reveal !== undefined) {
+            if (this.state.reveal.pushed === true) {
+                alert('결과가 공개된 후이므로 더 이상의 투표는 불가합니다.');
+                return;
+            }
+        }
+
+        // validate the sender name
+        if (this.state.sender === '') {
+            alert('제출자는 꼭 입력해야 합니다.');
+            return;
+        }
+
+        // - set the key value
+        const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+        // - set the time property
+        const timeVal = `${today.getHours()}시 ${today.getMinutes()}분`;
+        // - prepare information object
+        const infoObj = {
+            name: this.state.sender,
+            time: timeVal,
+        }
+
+        // - send it to the server
+        this.votesRef.child(dateRef).child('passes').push(infoObj);
+
+        // - clear picks
+        this.setState({ selectedStores: [], sender: '', password: '', });
     }
 
     storeReset = () => {
@@ -222,6 +264,16 @@ class App extends Component {
         }
     }
 
+    delPassBtnClicked = (event) => {
+
+        const answer = window.confirm('해당 투표 삭제할까요?');
+        if (answer) {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+            this.votesRef.child(dateRef).child('passes').child(event.target.id).remove();
+        }
+    }
+
     showVoteBtnClicked = (event) => {
         const messagePicks = (picks) =>
             `1픽 ${picks[0]}\n2픽 ${picks[1]}\n3픽 ${picks[2]}`;
@@ -322,6 +374,26 @@ class App extends Component {
             }
             this.setState({ votes: newVotes });
         });
+
+        // retrieve passes for today
+        this.votesRef.on('value', (snapshot) => {
+            const today = new Date();
+            const dateRef = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+            const passesObj = snapshot.child(dateRef).child('passes').val();
+            const newPasses = [];
+
+            for (var key in passesObj) {
+                if (passesObj.hasOwnProperty(key)) {
+                    var pass = {
+                        id: key,
+                        name: passesObj[key].name,
+                        time: passesObj[key].time
+                    }
+                    newPasses.push(pass);
+                }
+            }
+            this.setState({ passes: newPasses });
+        })
     }
 
     render() {
@@ -335,6 +407,7 @@ class App extends Component {
                 <Selector selectedStores={this.state.selectedStores}
                     storeReset={this.storeReset.bind(this)}
                     storeConfirm={this.storeConfirm.bind(this)}
+                    passConfirm={this.passConfirm.bind(this)}
                     selectRandomly={this.selectRandomly.bind(this)}
                     sender={this.state.sender}
                     password={this.state.password}
@@ -342,7 +415,9 @@ class App extends Component {
                     typedPassword={this.typedPassword.bind(this)}
                     storeClickedInPickedList={this.storeClickedInPickedList.bind(this)} />
                 <Results votes={this.state.votes}
+                    passes={this.state.passes}
                     delVoteBtnClicked={this.delVoteBtnClicked.bind(this)}
+                    delPassBtnClicked={this.delPassBtnClicked.bind(this)}
                     showVoteBtnClicked={this.showVoteBtnClicked.bind(this)}
                     criteria={this.criteria}
                     HoursMinutesComparer={this.HoursMinutesComparer.bind(this)}

@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Results.module.css';
 import Result from './Result/Result';
 import Votes from './Votes/Votes';
+import Passes from './Passes/Passes';
 
 const results = (props) => {
 
@@ -97,6 +98,9 @@ const results = (props) => {
                 delVoteBtnClicked={props.delVoteBtnClicked}
                 showVoteBtnClicked={props.showVoteBtnClicked}
                 open={open} />
+
+            <Passes passes={props.passes}
+                delPassBtnClicked={props.delPassBtnClicked} />
         </div>
     )
 }
